@@ -1,0 +1,23 @@
+/*
+ * 默认样式
+ */
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+    -webkit-text-size-adjust: none;
+}
+body {
+    font-size: 12px;
+    font-family: "Microsoft YaHei", "微软雅黑", "黑体",serif;
+}
+.clear:after {
+    display: block;
+    clear: both;
+    content: "";
+}
+.orange{
+    color: #e14b1d;
+}
