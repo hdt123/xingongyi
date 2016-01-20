@@ -34,6 +34,8 @@ public class Project implements Serializable {
 	private String projectDesc;
 	private Integer pariseNum;		//点赞数量
 	private Integer projectNum;		//项目编号
+	private Integer needNum;		//项目需要赞的数量
+	private Integer shareNum;       //传播人数
 	private Set<Parise> parises = new HashSet<Parise>(0);      //点赞集合
 
 
@@ -45,12 +47,14 @@ public class Project implements Serializable {
 	}
 
 	public Project(String projectName, String projectDesc, Integer pariseNum,
-			Integer projectNum, Set<Parise> parises) {
+			Integer projectNum, Set<Parise> parises,int needNum,int shareNum) {
 		this.projectName = projectName;
 		this.projectDesc = projectDesc;
 		this.pariseNum = pariseNum;
 		this.projectNum = projectNum;
 		this.parises = parises;
+		this.needNum = needNum;
+		this.shareNum = shareNum;
 	}
 
 	@Id
@@ -108,5 +112,26 @@ public class Project implements Serializable {
 	public void setParises(Set<Parise> parises) {
 		this.parises = parises;
 	}
+
+	@Column(name = "needNum")
+	public Integer getNeedNum() {
+		return needNum;
+	}
+
+	public void setNeedNum(Integer needNum) {
+		this.needNum = needNum;
+	}
+
+	@Column(name = "shareNum")
+	public Integer getShareNum() {
+		return shareNum;
+	}
+
+	public void setShareNum(Integer shareNum) {
+		this.shareNum = shareNum;
+	}
+	
+	
+	
 
 }
