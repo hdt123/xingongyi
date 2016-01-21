@@ -18,7 +18,22 @@ public class DateUtils {
 		
 		return sdf.format(date);
 	}
-	/*public static void main(String[] args) {
-		System.out.println(date2String(new Date()));
-	}*/
+	
+	/**
+	 * 获取当前时间戳
+	 * @return
+	 */
+	public static long getTimeStamp(){
+		
+		Date dates = new Date();
+        
+        long s=dates.getTime();
+		
+		return s/1000;
+	}
+	public static void main(String[] args) {
+		int i = 1453335100;
+		 i = (int) (getTimeStamp() - i) ;
+		 System.out.println(i);
+	}
 }

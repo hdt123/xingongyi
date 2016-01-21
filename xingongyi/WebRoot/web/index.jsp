@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             top: -15px;
         }
         section{
-            margin: 0 8px;
+            margin: 0 8px 22px;
         }
         #total-people{
             color: #D26A6A;
@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             background: url("web/img/img-5.png") no-repeat;
             background-size: 100%;
             z-index: 1;
-            position: absolute;
+            position: fixed;
             bottom: 0;
             height: 22px;
             width: 100%;
@@ -131,21 +131,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="total-people">参与祈福人数：${sum }</div>
     <div id="title">爱心项目</div>
     <div id="list" class="clear">
-        <a class="clear" href="web/desc.jsp">
+        <a class="clear" href="userAction!toPray.action?userId=${user.userId }&&projectId=1">
             <img src="web/img/1.jpg"/>
             <div class="list-title">相信阅读的力量</div>
             <div class="list-desc">建发35周年为乡村孩子众筹图书角，你捐多少建发配捐多少。</div>
             <div class="list-plan">
-                <div><div></div></div>
+                <div><div class='percent'></div></div>
                 <div>${project1.pariseNum }人 / ${project1.needNum }人</div>
             </div>
         </a>
-        <a class="clear" href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fwing%2FXGY%2Fdesc.php&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect">
+        <a class="clear" href="web/desc.jsp">
             <img src="web/img/4.jpg"/>
             <div class="list-title">格桑花之爱</div>
             <div class="list-desc">为30名日喀则先天性髋关节脱位儿童筹款，实施矫正手术。</div>
             <div class="list-plan clear">
-                    <div><div style="width: 100%"></div></div>
+                    <div><div class='percent'></div></div>
                     <div>${project2.pariseNum }人 / ${project2.needNum }人</div>
             </div>
         </a>
@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="list-title">为失聪女孩寻找声音</div>
             <div class="list-desc">帮一个因医疗事故而导致失聪的女孩重新找回世界声音的愿望</div>
             <div class="list-plan clear">
-                <div><div style="width: 10%"></div></div>
+                <div><div class='percent'></div></div>
                 <div>${project3.pariseNum }人 / ${project3.needNum }人</div>
             </div>
         </a>
@@ -164,14 +164,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="web/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
     	$(function(){
-    		 alert(location.href); 
+    	alert(location.href);
+    	/* alert(); */
+    		/*  alert('${access_token}');
+    		 alert('${createDate}');
+    		 alert('${expires_in}');  */
      	});
     </script>
 <script>
     $(function(){
-            var img=$('#list').find('img');
+            var img=$('#list').find('img'),
+            	percent=$('.percent'),
+            	num1=Math.floor(parseInt('${project1.pariseNum }')/parseInt('${project1.needNum }')*100),
+            	num2=Math.floor(parseInt('${project2.pariseNum }')/parseInt('${project2.needNum }')*100),
+            	num3=Math.floor(parseInt('${project3.pariseNum }')/parseInt('${project3.needNum }')*100);
+            num1=num1>100?100:num1;
+            num2=num2>100?100:num2;
+            num3=num3>100?100:num3;
             img.height(img.width()*(73/100)+'px');
-    })
+            percent.eq(0).css('width',num1+'%');
+            percent.eq(1).css('width',num2+'%');
+            percent.eq(2).css('width',num3+'%');
+    });
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
@@ -187,11 +201,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
          */
         wx.config({
-            debug: false,
+            debug: true,
             appId: '${appId}',
-            timestamp: '${timestampindex}',
-            nonceStr: '${nonceStrindex}',
-            signature: '${signatureindex}',
+            timestamp: '${timestamptoIndex}',
+            nonceStr: '${nonceStrtoIndex}',
+            signature: '${signaturetoIndex}',
             jsApiList: [
                 // 所有要调用的 API 都要加到这个列表中
                 'hideOptionMenu',
@@ -203,15 +217,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         wx.ready(function () {
             // 在这里调用 API
             //wx.hideOptionMenu();
-			var titles ="";
-			if('${user.points}!=0')
-				titles = "${user.nickName}获得了${user.points}分,关注883公众号回复优惠券可领取丰厚奖品！";
-			else
-				titles="${user.nickName}参与了“883寻找骰魔大行动”有奖活动，关注883公众号回复优惠券可领取丰厚奖品！";
             wx.onMenuShareAppMessage({
-                title: '883寻找骰魔大行动', // 分享标题
-                desc: titles, // 分享描述
-                link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2660c6aa6bd67ff1&redirect_uri=http%3A%2F%2Fdev.ydcycloud.net%2Fdice%2FdiceAction_diceGame.action&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
+                title: '${user.nickName}邀您一起参与新春祈福行动', // 分享标题
+                desc: '新春祈福行动正式开始！您的一点点爱心！', // 分享描述
+                link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect', // 分享链接
                 imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
                 type: '', // 分享类型,music、video或link，不填默认为link
                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
@@ -229,13 +238,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             });
 
             wx.onMenuShareTimeline({
-                title: titles, // 分享标题
-                link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2660c6aa6bd67ff1&redirect_uri=http%3A%2F%2Fdev.ydcycloud.net%2Fdice%2FdiceAction_diceGame.action&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
+                title: '${user.nickName}邀您一起参与新春祈福行动', // 分享标题
+                link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect', // 分享链接
                 imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
                 success: function () {
                      // 用户确认分享后执行的回调函数
-					$.post('../diceAction_changeShareState.action',
-					{userId:"${user.userId}"},
+					$.post('userAction!share.action',
+					{userId:"${user.userId}",
+					projectId:1},
+					
 					function(){
 						
 					});

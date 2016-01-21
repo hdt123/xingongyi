@@ -69,7 +69,7 @@ public class User implements Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "nickName", nullable = false)
+	@Column(name = "nickName")
 	public String getNickName() {
 		return this.nickName;
 	}

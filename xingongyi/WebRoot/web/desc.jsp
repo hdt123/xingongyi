@@ -199,20 +199,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <section>
     <div class="list-plan clear">
         <div><div></div></div>
-        <div><span class="orange">${project0.pariseNum }人</span>/${project0.needNum }人</div>
+        <div><span class="orange">${project1.pariseNum }人</span>/${project1.needNum }人</div>
     </div>
     <div id="msg" class="clear">
         <div>
             <div>目标</div>
-            <div>${project0.needNum }人</div>
+            <div>${project1.needNum }人</div>
         </div>
         <div>
             <div>祈福人数</div>
-            <div><span class="orange">${project0.pariseNum }</span>人</div>
+            <div><span class="orange">${project1.pariseNum }</span>人</div>
         </div>
         <div>
             <div>传播人数</div>
-            <div><span class="orange">${project0.shareNum }</span>人</div>
+            <div><span class="orange">${project1.shareNum }</span>人</div>
         </div>
 
     </div>
@@ -250,27 +250,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $afterJoin  = $('#after-join'),
             $afterShare = $('#after-share');
         $header.height($header.width() * (47/100) + 'px');
+        
+        if(${state== false}){
+        	$joinBtn.html('已祈福');
+        }else{
+        	$joinBtn.one('click', function(){
+                var $this = $(this);
+                $this.addClass('btnCarton');
+                setTimeout(function(){
+    				$.post('userAction!pray.action?userId=${user.userId}&&projectId=${project1.projectId}',function(data){
+    					
+    					if(data.status==0){
+    						location.reload();
+    						$this.html('已祈福');
+    		                $afterJoin.fadeIn(500,function(){
+    		                    var _this=$(this);
+    		                    setTimeout(function(){
+    		                        $this.removeClass('btnCarton');
+    		                        _this.fadeOut(500);
+    		                    },3000);
+    		                });
+    					}
+    					
+    				});
+                },100);
+            });
+        }
 
-        $joinBtn.one('click', function(){
-            var $this = $(this);
-            $this.addClass('btnCarton');
-            setTimeout(function(){
-				$.post('userAction!pray.action?userId=${user.userId}&&projectId=${project1.projectId}',function(data){
-					
-					if(data.status==0){
-						$this.html('已祈福');
-		                $afterJoin.fadeIn(500,function(){
-		                    var _this=$(this);
-		                    setTimeout(function(){
-		                        $this.removeClass('btnCarton');
-		                        _this.fadeOut(500);
-		                    },3000);
-		                });
-					}
-					
-				})
-            },100)
-        });
+        
 
         $shareBtn.on('click', function(){
             var $this = $(this);
@@ -302,66 +309,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          * 邮件主题：【微信JS-SDK反馈】具体问题
          * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
          */
-        wx.config({
-            debug: false,
-            appId: '${appId}',
-            timestamp: '${timestampindex}',
-            nonceStr: '${nonceStrindex}',
-            signature: '${signatureindex}',
-            jsApiList: [
-                // 所有要调用的 API 都要加到这个列表中
-                'hideOptionMenu',
-                'onMenuShareAppMessage',
-                'onMenuShareTimeline'
-            ]
-        });
+         wx.config({
+             debug: true,
+             appId: '${appId}',
+             timestamp: '${timestamptoPray}',
+             nonceStr: '${nonceStrtoPray}',
+             signature: '${signaturetoPray}',
+             jsApiList: [
+                 // 所有要调用的 API 都要加到这个列表中
+                 'hideOptionMenu',
+                 'onMenuShareAppMessage',
+                 'onMenuShareTimeline'
+             ]
+         });
 
-        wx.ready(function () {
-            // 在这里调用 API
-            //wx.hideOptionMenu();
-			var titles ="";
-			if('${user.points}!=0')
-				titles = "${user.nickName}获得了${user.points}分,关注883公众号回复优惠券可领取丰厚奖品！";
-			else
-				titles="${user.nickName}参与了“883寻找骰魔大行动”有奖活动，关注883公众号回复优惠券可领取丰厚奖品！";
-            wx.onMenuShareAppMessage({
-                title: '883寻找骰魔大行动', // 分享标题
-                desc: titles, // 分享描述
-                link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2660c6aa6bd67ff1&redirect_uri=http%3A%2F%2Fdev.ydcycloud.net%2Fdice%2FdiceAction_diceGame.action&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
-                imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
-                type: '', // 分享类型,music、video或link，不填默认为link
-                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-                success: function () {
-                    // 用户确认分享后执行的回调函数
-					$.post('../diceAction_changeShareState.action',
-					{userId:"${user.userId}"},
-					function(){
-						
-					});
-                },
-                cancel: function () {
-                    // 用户取消分享后执行的回调函数
-                }
-            });
-
-            wx.onMenuShareTimeline({
-                title: titles, // 分享标题
-                link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx2660c6aa6bd67ff1&redirect_uri=http%3A%2F%2Fdev.ydcycloud.net%2Fdice%2FdiceAction_diceGame.action&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect', // 分享链接
-                imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
-                success: function () {
+         wx.ready(function () {
+             // 在这里调用 API
+             //wx.hideOptionMenu();
+             wx.onMenuShareAppMessage({
+                 title: '${user.nickName}邀您一起参与新春祈福行动', // 分享标题
+                 desc: '新春祈福行动正式开始！', // 分享描述
+                 link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect', // 分享链接
+                 imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
+                 type: '', // 分享类型,music、video或link，不填默认为link
+                 dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                 success: function () {
                      // 用户确认分享后执行的回调函数
-					$.post('../diceAction_changeShareState.action',
-					{userId:"${user.userId}"},
-					function(){
-						
-					});
-                },
-                cancel: function () {
-                    // 用户取消分享后执行的回调函数
-                }
-            });
+ 					$.post('userAction!share.action',
+ 					{userId:"${user.userId}",
+ 					projectId:"${projectId}"},
+ 					function(){
+ 						location.reload();
+ 					});
+                 },
+                 cancel: function () {
+                     // 用户取消分享后执行的回调函数
+                 }
+             });
 
-        });
+             wx.onMenuShareTimeline({
+                 title: '${user.nickName}邀您一起参与新春祈福行动', // 分享标题
+                 link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect', // 分享链接
+                 imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
+                 success: function () {
+                      // 用户确认分享后执行的回调函数
+ 					$.post('userAction!share.action',
+ 					{userId:"${user.userId}",
+ 					projectId:"${projectId}"},
+ 					
+ 					function(){
+ 						location.reload();
+ 					});
+                 },
+                 cancel: function () {
+                     // 用户取消分享后执行的回调函数
+                 }
+             });
+
+         });
 </script>
 </body>
 </html>
