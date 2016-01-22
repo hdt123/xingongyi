@@ -10,6 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>新年快乐</title>
     <link rel="stylesheet" type="text/css" href="web/css/common.css">
     <style>
