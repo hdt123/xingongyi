@@ -20,13 +20,13 @@
     </style>
 </head>
 <body>
-<form class="weui_cells weui_cells_form">
+<form class="weui_cells weui_cells_form" action="FormAction!register.action" method="post">
     <div class="weui_cell">
         <div class="weui_cell_hd">
             <label class="weui_label">姓名</label>
         </div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input name="nickName" class="weui_input" placeholder="请输入姓名">
+            <input name="realName" class="weui_input" placeholder="请输入姓名">
         </div>
     </div>
     <div class="weui_cell">
@@ -34,7 +34,7 @@
             <label class="weui_label">身份证</label>
         </div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input name="idCard" class="weui_input" placeholder="请输入身份证号码">
+            <input name="idcard" class="weui_input" placeholder="请输入身份证号码">
         </div>
     </div>
     <div class="weui_cell">
@@ -42,7 +42,7 @@
             <label class="weui_label">手机</label>
         </div>
         <div class="weui_cell_bd weui_cell_primary">
-            <input name="tel" class="weui_input" placeholder="请输入手机号码">
+            <input name="cellphone" id="tel" class="weui_input" placeholder="请输入手机号码">
         </div>
     </div>
     <div class="weui_cell weui_vcode">
@@ -53,8 +53,16 @@
             <input name="verCode" class="weui_input" placeholder="请输入验证码" maxlength="18">
         </div>
         <div class="weui_cell_ft vercode">
-            <a class="sendMsg weui_btn weui_btn_mini weui_btn_default">发送</a>
+            <a class="sendMsg weui_btn weui_btn_mini weui_btn_default" onclick="getMsg()">发送</a>
         </div>
+        <script type="text/javascript">
+        	function getMsg(){
+        		var cp = $('#tel').val();
+        		$.post('FormAction!getCode.action',{cellphone:cp},function(data){
+        			
+        		});
+        	}
+        </script>
     </div>
     <div class="weui_cell">
         <button id="form-btn" class="weui_btn weui_btn_primary">提交</button>
@@ -96,10 +104,10 @@
         })
     });
     function check_form(){
-        var nickname = $('input[name="nickName"]'),
-            idcard   = $('input[name="idCard"]'),
-            telnum   = $('input[name="tel"]'),
-            vercode  = $('input[name="varCode"]');
+        var nickname = $('input[name="realName"]'),
+            idcard   = $('input[name="idcard"]'),
+            telnum   = $('input[name="cellphone"]'),
+            vercode  = $('input[name="verCode"]');
         if(nickname.val()==''){
             $.dialog.show_dialog('请输入真实姓名');
             return false;

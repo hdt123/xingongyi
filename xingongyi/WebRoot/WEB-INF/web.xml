@@ -20,4 +20,7 @@
   <listener>
     <listener-class>com.xgy.service.InitListener</listener-class>
   </listener>
+  <session-config>
+  	<session-timeout>3</session-timeout>
+  </session-config>
 </web-app>
