@@ -15,6 +15,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         body{
             font-family: "Microsoft YaHei", "微软雅黑", "黑体", serif;
         }
+        header img{
+            width: 100%;
+        }
         .vercode{
             width: 30%;
             margin: 5px;
@@ -25,6 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </style>
 </head>
 <body>
+<header>
+    <img src="img/form_logo.png">
+</header>
 <form class="weui_cells weui_cells_form" action="FormAction!register.action" method="post">
     <div class="weui_cell">
         <div class="weui_cell_hd">
