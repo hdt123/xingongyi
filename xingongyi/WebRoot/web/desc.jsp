@@ -326,7 +326,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <script type="text/javascript">
     	$(function(){
-    		// alert(location.href);
+    		 alert(location.href);
      	});
     </script>
 
