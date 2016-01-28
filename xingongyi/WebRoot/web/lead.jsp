@@ -1,13 +1,20 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 
 
 <!DOCTYPE html>
 <html>
 <head lang="en">
+	<base href="<%=basePath%>">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <meta name="format-detection" content="telephone=no">
     <title>新年快乐</title>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="web/css/common.css">
     <style>
         img{
             width: 100%;
@@ -46,15 +53,15 @@
 </head>
 <body>
 <div id="loading" >
-    <img src="img/loading.gif">
+    <img src="web/img/loading.gif">
     <div>loading</div>
 </div>
-<img id="bg-body" src="img/lead-bg.png">
-<img id="bg" src="img/lead-bg3.png">
-<img id="fu" src="img/lead-bg4.png">
+<img id="bg-body" src="web/img/lead-bg.png">
+<img id="bg" src="web/img/lead-bg3.png">
+<img id="fu" src="web/img/lead-bg4.png">
+  
 
-
-<script src="js/jquery-1.8.3.min.js"></script>
+<script src="web/js/jquery-1.8.3.min.js"></script>
 <script>
 
     $(function(){
@@ -64,7 +71,7 @@
                 $('#bg').fadeIn(500,function(){
                     $('#fu').fadeIn(1000,function(){
                         setTimeout(function(){
-                            location.href='';
+                            location.href='userAction!toIndexHead.action';
                         },1000);
                     });
 
