@@ -294,13 +294,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				$.post('userAction!pray.action?userId=${user.userId}&&projectId=${project1.projectId}',function(data){
     					
     					if(data.status==0){
-    						location.reload();
+    						//location.reload();
     						$this.html('已祈福');
     		                $afterJoin.fadeIn(500,function(){
     		                    var _this=$(this);
     		                    setTimeout(function(){
     		                        $this.removeClass('btnCarton');
-    		                        _this.fadeOut(500);
+    		                        _this.fadeOut(500,function(){
+    location.reload();
+    });
     		                    },3000);
     		                });
     					}
@@ -326,7 +328,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     <script type="text/javascript">
     	$(function(){
-    		 alert(location.href);
+    	//	 alert(location.href);
      	});
     </script>
 
@@ -343,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          * 邮件内容说明：用简明的语言描述问题所在，并交代清楚遇到该问题的场景，可附上截屏图片，微信团队会尽快处理你的反馈。
          */
          wx.config({
-             debug: true,
+             debug: false,
              appId: '${appId}',
              timestamp: '${timestamptoPray}',
              nonceStr: '${nonceStrtoPray}',
