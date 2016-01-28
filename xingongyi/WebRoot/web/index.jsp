@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>新年快乐</title>
+    <title>公益善谷新春祈福大行动</title>
     <link rel="stylesheet" type="text/css" href="web/css/common.css">
     <style>
         body{
@@ -132,31 +132,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="total-people">参与祈福人数：${sum }</div>
     <div id="title">爱心项目</div>
     <div id="list" class="clear">
-        <a class="clear" href="userAction!toPray.action?userId=${user.userId }&&projectId=1">
-            <img src="web/img/1.jpg"/>
-            <div class="list-title">相信阅读的力量</div>
-            <div class="list-desc">建发35周年为乡村孩子众筹图书角，你捐多少建发配捐多少。</div>
+        <a class="clear" href="userAction!toPray.action?userId=${user.userId }&projectId=1">
+            <img src="web/img/desc-1-2.jpg"/>
+            <div class="list-title">延续父亲的希望</div>
+            <div class="list-desc">公益善谷新春祈福公益众筹活动项目《延续父亲的希望》</div>
             <div class="list-plan">
                 <div><div class='percent'></div></div>
                 <div>${project1.pariseNum }人 / ${project1.needNum }人</div>
-            </div>
-        </a>
-        <a class="clear" href="web/desc.jsp">
-            <img src="web/img/4.jpg"/>
-            <div class="list-title">格桑花之爱</div>
-            <div class="list-desc">为30名日喀则先天性髋关节脱位儿童筹款，实施矫正手术。</div>
-            <div class="list-plan clear">
-                    <div><div class='percent'></div></div>
-                    <div>${project2.pariseNum }人 / ${project2.needNum }人</div>
-            </div>
-        </a>
-        <a class="clear" href="desc.jsp">
-            <img src="web/img/5.jpg"/>
-            <div class="list-title">为失聪女孩寻找声音</div>
-            <div class="list-desc">帮一个因医疗事故而导致失聪的女孩重新找回世界声音的愿望</div>
-            <div class="list-plan clear">
-                <div><div class='percent'></div></div>
-                <div>${project3.pariseNum }人 / ${project3.needNum }人</div>
             </div>
         </a>
     </div>
@@ -165,11 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="web/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript">
     	$(function(){
-    	alert(location.href);
-    	/* alert(); */
-    		/*  alert('${access_token}');
-    		 alert('${createDate}');
-    		 alert('${expires_in}');  */
+    	
      	});
     </script>
 <script>
@@ -177,15 +155,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             var img=$('#list').find('img'),
             	percent=$('.percent'),
             	num1=Math.floor(parseInt('${project1.pariseNum }')/parseInt('${project1.needNum }')*100),
-            	num2=Math.floor(parseInt('${project2.pariseNum }')/parseInt('${project2.needNum }')*100),
-            	num3=Math.floor(parseInt('${project3.pariseNum }')/parseInt('${project3.needNum }')*100);
+            	//num2=Math.floor(parseInt('${project2.pariseNum }')/parseInt('${project2.needNum }')*100),
+            	//num3=Math.floor(parseInt('${project3.pariseNum }')/parseInt('${project3.needNum }')*100);
             num1=num1>100?100:num1;
-            num2=num2>100?100:num2;
-            num3=num3>100?100:num3;
+            //num2=num2>100?100:num2;
+            //num3=num3>100?100:num3;
             img.height(img.width()*(73/100)+'px');
             percent.eq(0).css('width',num1+'%');
-            percent.eq(1).css('width',num2+'%');
-            percent.eq(2).css('width',num3+'%');
+            //percent.eq(1).css('width',num2+'%');
+            //percent.eq(2).css('width',num3+'%');
     });
 </script>
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
@@ -219,8 +197,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             // 在这里调用 API
             //wx.hideOptionMenu();
             wx.onMenuShareAppMessage({
-                title: '${user.nickName}邀您一起参与新春祈福行动', // 分享标题
-                desc: '新春祈福行动正式开始！您的一点点爱心！', // 分享描述
+                 title: '公益善谷新春祈福大行动', // 分享标题
+                 desc: '高明新公益团队    本土化  新公益  心传播', // 分享描述
                 link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect', // 分享链接
                 imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
                 type: '', // 分享类型,music、video或link，不填默认为link
@@ -239,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             });
 
             wx.onMenuShareTimeline({
-                title: '${user.nickName}邀您一起参与新春祈福行动', // 分享标题
+                 title: '公益善谷新春祈福大行动', // 分享标题
                 link: 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect', // 分享链接
                 imgUrl: 'http://dev.ydcycloud.net/wing/dice/img/883.png', // 分享图标
                 success: function () {
