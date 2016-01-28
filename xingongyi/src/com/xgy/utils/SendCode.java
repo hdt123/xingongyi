@@ -47,13 +47,13 @@ public class SendCode {
 	 * @throws Exception
 	 */
 	public static String sendCode(String mobile,String code) throws Exception{
-		String content = "验证码："+code+"；三分钟内有效。";
+		String content = "本次验证码："+code+"，三分钟内有效。";
 		String sign = "高明新公益";
 		StringBuffer sb = new StringBuffer("http://sms.1xinxi.cn/asmx/smsservice.aspx?");
 		// 向StringBuffer追加用户名
-		sb.append("name=18316022570");
+		sb.append("name=13535685354");
 		// 向StringBuffer追加密码（登陆网页版，在管理中心--基本资料--接口密码，是28位的）
-		sb.append("&pwd=1E62068EB133CD3ED489883F90E5");
+		sb.append("&pwd=3449F798C4B65064C26E73ED3086");
 		// 向StringBuffer追加手机号码
 		sb.append("&mobile="+mobile);
 		// 向StringBuffer追加消息内容转URL标准码

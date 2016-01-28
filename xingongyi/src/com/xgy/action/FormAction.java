@@ -29,9 +29,11 @@ public class FormAction extends BaseAction<Nick>{
 	public void getCode(){
 		try {
 			String code = SendCode.getCode();
-//			String send_str = SendCode.sendCode(model.getCellphone(),code);
-//			int len = send_str.length();
-//			System.out.println(send_str.substring(len-4,len));
+			String send_str = SendCode.sendCode(model.getCellphone(),code);
+			int len = send_str.length();
+			if(send_str.length()>4){
+				System.out.println(send_str.substring(len-4,len));
+			}
 			System.out.println(code);
 			request.getSession().setAttribute(model.getCellphone(),code);//存进session域
 		} catch (Exception e) {
