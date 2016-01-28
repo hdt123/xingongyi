@@ -66,14 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="weui_cell_ft vercode">
             <a class="sendMsg weui_btn weui_btn_mini weui_btn_default" onclick="getMsg()">发送</a>
         </div>
-        <script type="text/javascript">
-        	function getMsg(){
-        		var cp = $('#tel').val();
-        		$.post('FormAction!getCode.action',{cellphone:cp},function(data){
-        			
-        		});
-        	}
-        </script>
+
     </div>
     <div class="weui_cell">
         <button id="form-btn" class="weui_btn weui_btn_primary">提交</button>
@@ -81,6 +74,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </form>
 <script src="js/jquery-1.8.3.min.js"></script>
 <script src="js/dialogV1.20.js"></script>
+    <script type="text/javascript">
+    function getMsg(){
+    var cp = $('#tel').val();
+    if(cp==''){
+    $.dialog.show_dialog('请输入手机号码');
+    }else{
+    $.post('FormAction!getCode.action',{cellphone:cp},function(data){
+
+    });
+    }
+
+    }
+    </script>
 <script>
     (function($){
         $.fn.count_time=function(time){

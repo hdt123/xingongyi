@@ -291,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 var $this = $(this);
                 $this.addClass('btnCarton');
                 setTimeout(function(){
-    				$.post('userAction!pray.action?userId=${user.userId}&&projectId=${project1.projectId}',function(data){
+    				$.post('userAction!pray.action?userId=${user.userId}&projectId=${project1.projectId}',function(data){
     					
     					if(data.status==0){
     						//location.reload();
