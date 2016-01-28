@@ -33,7 +33,7 @@ public class SendCode {
 		Random ran = new Random();
 		int i = 0;
 		StringBuilder sb = new StringBuilder();
-		while(i++<4){
+		while(i++<6){
 			int str = ran.nextInt(10);
 			sb.append(str);
 		}
