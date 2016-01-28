@@ -18,12 +18,13 @@ import com.xgy.utils.UrlString;
 import com.xgy.utils.UserUtils;
 
 @Action(value="userAction",
-		results={@Result(name="toIndex",location="/web/index.jsp"),
+		results={@Result(name="toIndex",location="/web/lead.jsp"),
 				 @Result(name="toIndex_error",type="redirect",location="/web/index.jsp"),
 				 @Result(name="wechatGrant",type="redirect",location="https://open.weixin.qq.com/connect/oauth2/authorize?"
 				 		+ "appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&"
 				 		+ "response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"),
-				 @Result(name="toPray",location="/web/desc.jsp")
+				 @Result(name="toPray",location="/web/desc.jsp"),
+				 @Result(name="toIndexHead",location="/web/index.jsp")
 				 })
 public class UserAction extends BaseAction<User>{
 	
@@ -65,7 +66,7 @@ public class UserAction extends BaseAction<User>{
 	
 	@Action(value="toIndex")
 	public String toIndex(){
-		String url = "http://dev.ydcycloud.net/xingongyi/userAction!toIndex.action?code="+code+"&state=STATE";
+		String url = "http://dev.ydcycloud.net/xingongyi/userAction!toIndexHead.action";
 		System.out.println("code:"+code);
 		if(code==null)
 			return "toIndex_error";
@@ -80,9 +81,15 @@ public class UserAction extends BaseAction<User>{
 		return "toIndex";
 	}
 	
+	@Action(value="toIndexHead")
+	public String toIndexHead(){
+		return "toIndexHead";
+	}
+	
 	public String toPray(){
-		String url = "http://dev.ydcycloud.net/xingongyi/userAction!toPray.action?userId="+model.getUserId()+"&&projectId="+projectId;
+		String url = "http://dev.ydcycloud.net/xingongyi/userAction!toPray.action?userId="+model.getUserId()+"&projectId="+projectId;
 		if(model.getUserId()==null||request.getSession().getAttribute("user")==null){
+			System.out.println("====return shouquan");
 			return "wechatGrant";
 		}
 		

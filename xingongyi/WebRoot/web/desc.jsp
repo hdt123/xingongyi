@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
         .list-plan>div:first-child>div{
             background-color: #e14b1d;
-            width: 82%;
+            width: 0;
             height: 8px;
             -webkit-border-radius: 4px;
         }
@@ -138,14 +138,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             text-align: center;
         }
         #join{
-            background: url("img/img-6.png") no-repeat;
+            background: url("web/img/img-6.png") no-repeat;
             font-size: 18px;
             line-height: 67px;
             text-indent:40px;
             float: left;
         }
         #share{
-            background: url("img/img-7.png") no-repeat;
+            background: url("web/img/img-7.png") no-repeat;
             font-size: 14px;
             float: right;
         }
@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             margin-top: 13px;
         }
         #foot{
-            background: url("img/img-5.png") no-repeat;
+            background: url("web/img/img-5.png") no-repeat;
             background-size: 100%;
             height: 22px;
             width: 100%;
@@ -211,18 +211,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <header>
-    <img src="web/img/desc-1-2.jpg">
+    <img src="web/img/desc-1-1.jpg">
     <div id="title">延续父亲的希望</div>
 </header>
 <section>
     <div class="list-plan clear">
-        <div><div></div></div>
-        <div><span class="orange">${project1.pariseNum }人</span>/${project1.needNum }人</div>
+        <div><div id='projectNum'></div></div>
+        <div><span class="orange">${project1.pariseNum } 元</span>/${project1.needNum } 元</div>
     </div>
     <div id="msg" class="clear">
         <div>
-            <div>目标</div>
-            <div>${project1.needNum }人</div>
+            <div>目标金额</div>
+            <div>${project1.needNum } 元</div>
         </div>
         <div>
             <div>祈福人数</div>
@@ -277,7 +277,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $afterJoin  = $('#after-join'),
             $afterShare = $('#after-share'),
             r           = [10,20,30],
-            imgNo       = r[Math.floor(Math.random()* r.length)];
+            imgNo       = r[Math.floor(Math.random()* r.length)],
+            num=Math.floor(parseInt('${project1.pariseNum }')/parseInt('${project1.needNum }')*100);
+        num = num > 100 ? 100 : num;
+        $('#projectNum').css('width',num+'%');
         //$afterJoin.find('img').attr('src','img/afterJoin'+imgNo+'.png');
         $header.height($header.width() * (47/100) + 'px')
         
