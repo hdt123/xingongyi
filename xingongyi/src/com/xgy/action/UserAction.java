@@ -23,7 +23,21 @@ import com.xgy.utils.UserUtils;
 				 @Result(name="wechatGrant",type="redirect",location="https://open.weixin.qq.com/connect/oauth2/authorize?"
 				 		+ "appid=wx97c624858e7a37d8&redirect_uri=http%3a%2f%2fdev.ydcycloud.net%2Fxingongyi%2FuserAction!toIndex.action&"
 				 		+ "response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect"),
-				 @Result(name="toPray",location="/web/desc.jsp"),
+				 @Result(name="toPray1",location="/web/desc1.jsp"),
+				 @Result(name="toPray2",location="/web/desc2.jsp"),
+				 @Result(name="toPray3",location="/web/desc3.jsp"),
+				 @Result(name="toPray4",location="/web/desc4.jsp"),
+				 @Result(name="toPray5",location="/web/desc5.jsp"),
+				 @Result(name="toPray6",location="/web/desc6.jsp"),
+				 @Result(name="toPray7",location="/web/desc7.jsp"),
+				 @Result(name="toPray8",location="/web/desc8.jsp"),
+				 @Result(name="toPray9",location="/web/desc9.jsp"),
+				 @Result(name="toPray10",location="/web/desc10.jsp"),
+				 @Result(name="toPray11",location="/web/desc11.jsp"),
+				 @Result(name="toPray12",location="/web/desc12.jsp"),
+				 @Result(name="toPray13",location="/web/desc13.jsp"),
+				 @Result(name="toPray14",location="/web/desc14.jsp"),
+				 
 				 @Result(name="toIndexHead",location="/web/index.jsp")
 				 })
 public class UserAction extends BaseAction<User>{
@@ -89,7 +103,6 @@ public class UserAction extends BaseAction<User>{
 	public String toPray(){
 		String url = "http://dev.ydcycloud.net/xingongyi/userAction!toPray.action?userId="+model.getUserId()+"&projectId="+projectId;
 		if(model.getUserId()==null||request.getSession().getAttribute("user")==null){
-			System.out.println("====return shouquan");
 			return "wechatGrant";
 		}
 		
@@ -99,7 +112,7 @@ public class UserAction extends BaseAction<User>{
 		setSignatureToSession(url,"toPray",accessToken);
 		request.setAttribute("projectId", projectId);
 		request.setAttribute("state", state);
-		return "toPray";
+		return "toPray"+projectId;
 	}
 	
 	@Action(value="pray")
@@ -133,6 +146,8 @@ public class UserAction extends BaseAction<User>{
 		Project p = userService.shareProject(model.getUserId(), projectId);
 		if(p!=null){
 			servletContext.setAttribute("project"+projectId, p);
+			int sum = (Integer)servletContext.getAttribute("sum");
+			servletContext.setAttribute("sum", sum+1);
 			map.put("status", 0);
 		}else{
 			map.put("status", -1);

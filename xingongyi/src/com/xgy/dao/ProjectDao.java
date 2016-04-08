@@ -47,6 +47,19 @@ public class ProjectDao {
 		
 	}
 	
+	public void updateProjectOpenSession(Project p){
+		
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
+		SessionFactory sf = (SessionFactory) ac.getBean("sessionFactory");
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.update(p);
+		session.getTransaction().commit();
+		session.flush();
+		session.close();
+		
+	}
+	
 	public void updateProject(Project project){
 		project = (Project) sessionFactory.getCurrentSession().merge(project);
 		sessionFactory.getCurrentSession().update(project);
