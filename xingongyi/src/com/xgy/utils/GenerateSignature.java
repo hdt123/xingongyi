@@ -19,7 +19,6 @@ public class GenerateSignature {
 		
         for (int i = 0; i < ArrTmp.length; i++) {  
             sb.append(ArrTmp[i]+"&");  
-            
         }  
         System.out.println(sb.toString());
         String str = sb.deleteCharAt(sb.length()-1).toString();  
